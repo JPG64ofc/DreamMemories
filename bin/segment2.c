@@ -2596,11 +2596,10 @@ const Gfx dl_billboard_num_9[] = {
     gsSPDisplayList(dl_billboard_num_end),
     gsSPEndDisplayList(),
 };
-
 #ifdef DIALOG_INDICATOR
 const Gfx dl_billboard_num_A[] = {
     gsSPDisplayList(dl_billboard_num_begin),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture_hud_char_A),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture_hud_char_question),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, ((16 * 16) - 1), CALC_DXT(16, G_IM_SIZ_16b_BYTES)),
     gsSPDisplayList(dl_billboard_num_end),

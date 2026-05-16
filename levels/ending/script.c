@@ -5,7 +5,7 @@
 #include "seq_ids.h"
 #include "segment_symbols.h"
 #include "level_commands.h"
-
+#include "game/print.h" 
 #include "game/area.h"
 #include "game/level_update.h"
 
@@ -17,8 +17,9 @@
 #include "levels/ending/header.h"
 
 const LevelScript level_ending_entry_loop[] = {
-    SLEEP(/*frames*/ 1),
-    JUMP(level_ending_entry_loop), // (loop sleep 1 forever)
+    SLEEP(/*frames*/ 120),
+    WARP_NODE( 0xF1, LEVEL_CASTLE,   0x01,   0x03, WARP_NO_CHECKPOINT),
+    //JUMP(level_ending_entry_loop), // (loop sleep 1 forever)
 };
 
 const LevelScript level_ending_entry[] = {
@@ -33,9 +34,9 @@ const LevelScript level_ending_entry[] = {
     SLEEP(/*frames*/ 60),
     BLACKOUT(/*active*/ FALSE),
     LOAD_AREA(/*area*/ 1),
-    TRANSITION(/*transType*/ WARP_TRANSITION_FADE_FROM_COLOR, /*time*/ 75, /*color*/ 0x00, 0x00, 0x00),
+    TRANSITION(/*transType*/ WARP_TRANSITION_FADE_FROM_COLOR, /*time*/ 0, /*color*/ 0x00, 0x00, 0x00),
+    //SET_MENU_MUSIC(/*seq*/ SEQ_DIRE_VICTORY),
     SLEEP(/*frames*/ 120),
-    CALL(/*arg*/ 0, /*func*/ lvl_play_the_end_screen_sound),
 
     JUMP(level_ending_entry_loop), // (loop sleep 1 forever)
 };

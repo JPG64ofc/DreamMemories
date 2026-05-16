@@ -13,7 +13,7 @@
 /**
  * Enable lives and the lives counter. The number next to the define is the number of lives you start with.
  */
-// #define ENABLE_LIVES 4
+#define ENABLE_LIVES 4
 
 /**
  * This can be 0..127.
@@ -53,22 +53,22 @@
 /**
  * Number of possible unique model ID's (keep it higher than 256).
  */
-#define MODEL_ID_COUNT 256
+#define MODEL_ID_COUNT 512
 
 /**
  * Number of supported areas per level.
  */
-#define AREA_COUNT 8
+ #define AREA_COUNT 16
 
 /**
  * Makes signs and NPCs easier to talk to.
  */
-// #define EASIER_DIALOG_TRIGGER
+ #define EASIER_DIALOG_TRIGGER
 
 /**
  * Shows an "A" when Mario is able to talk [requires EASIER_DIALOG_TRIGGER].
  */
-// #define DIALOG_INDICATOR
+ #define DIALOG_INDICATOR
 
 /**
  * Include the English characters that were missing from US segment2 and the rumble pak texture if using rumble.

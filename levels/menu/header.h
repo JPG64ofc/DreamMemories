@@ -49,4 +49,7 @@ extern const u8 eu_course_strings_de_table[];
 extern const LevelScript level_main_menu_entry_file_select[];
 extern const LevelScript level_main_menu_entry_act_select[];
 
+#include "levels/menu/file_select_screen/geo_header.h"
+//#include "levels/menu/file_select_screen/texscroll.inc.h"
+#include "file_select_screen_geo/geo_header.h"
 #endif

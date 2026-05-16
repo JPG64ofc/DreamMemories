@@ -592,9 +592,9 @@ void render_debug_mode(void) {
  * Renders the amount of coins collected.
  */
 void render_hud_coins(void) {
-    print_text(HUD_COINS_X, HUD_TOP_Y, "$"); // 'Coin' glyph
-    print_text((HUD_COINS_X + 16), HUD_TOP_Y, "*"); // 'X' glyph
-    print_text_fmt_int((HUD_COINS_X + 30), HUD_TOP_Y, "%d", gHudDisplay.coins);
+    print_text(HUD_COINS_X, 189, "$"); // 'Coin' glyph
+    print_text((HUD_COINS_X + 16), 189, "*"); // 'X' glyph
+    print_text_fmt_int((HUD_COINS_X + 30), 189, "%d", gHudDisplay.coins);
 }
 
 /**
@@ -604,9 +604,9 @@ void render_hud_coins(void) {
 void render_hud_stars(void) {
     if (gHudFlash == HUD_FLASH_STARS && gGlobalTimer & 0x8) return;
     s8 showX = (gHudDisplay.stars < 100);
-    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X), HUD_TOP_Y, "^"); // 'Star' glyph
-    if (showX) print_text((GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X) + 16), HUD_TOP_Y, "*"); // 'X' glyph
-    print_text_fmt_int((showX * 14) + GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X - 16),
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(152), HUD_TOP_Y, "^"); // 'Star' glyph
+    if (showX) print_text((GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(152) + 16), HUD_TOP_Y, "*"); // 'X' glyph
+    print_text_fmt_int((showX * 14) + GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(152 - 16),
                        HUD_TOP_Y, "%d", gHudDisplay.stars);
 }
 
@@ -639,7 +639,7 @@ void render_hud_timer(void) {
         case LANGUAGE_GERMAN:  print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(150), 185,  "ZEIT"); break;
     }
 #else
-    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(150), 185, "TIME");
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(85), 207, "TIME");
 #endif
 
     print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(91), 185, "%0d", timerMins);
@@ -739,12 +739,12 @@ void render_hud(void) {
         }
 
 #ifdef ENABLE_LIVES
-        if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
+        if (hudDisplayFlags)/* & HUD_DISPLAY_FLAG_LIVES) */{
             render_hud_mario_lives();
         }
 #endif
 
-        if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
+        if (hudDisplayFlags) /*& HUD_DISPLAY_FLAG_COIN_COUNT)*/ {
             render_hud_coins();
         }
 
@@ -765,7 +765,7 @@ void render_hud(void) {
 #ifdef PUPPYCAM
             if (!gPuppyCam.enabled) {
 #endif
-            render_hud_camera_status();
+            // render_hud_camera_status();
 #ifdef PUPPYCAM
             }
 #endif

@@ -38,3 +38,6 @@ UNUSED static const u64 binid_5 = 5;
 #include "chain_chomp/anims/data.inc.c"
 #include "chain_chomp/anims/table.inc.c"
 UNUSED static const u64 binid_6 = 6;
+#include "rex/model.inc.c"
+#include "rex/anims/data.inc.c"
+#include "rex/anims/table.inc.c"

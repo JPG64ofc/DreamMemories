@@ -8,13 +8,13 @@
  * Forces the camera mode to your choice (except when swimming or flying).
  * It does this by setting the area's camera->defMode to this mode.
  */
-#define FORCED_CAMERA_MODE        CAMERA_MODE_8_DIRECTIONS
+//#define FORCED_CAMERA_MODE        CAMERA_MODE_8_DIRECTIONS
 
 /**
  * Changes hardcoded camera mode reverting to instead use the area's default mode (defMode).
  * If you're using a FORCED_CAMERA_MODE, this must be on for it to work.
  */
-#define USE_COURSE_DEFAULT_MODE
+// #define USE_COURSE_DEFAULT_MODE
 
 /***** Movement specific camera modes: *****/
 /**
@@ -39,7 +39,7 @@
 /**
  * Enables "parallel lakitu camera" or "aglab cam" which lets you move the camera smoothly with the D-pad.
  */
-#define PARALLEL_LAKITU_CAM
+//#define PARALLEL_LAKITU_CAM
 
 /**
  * Enables Puppy Camera 2, a rewritten camera that can be freely configured and modified.

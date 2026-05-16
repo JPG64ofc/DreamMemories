@@ -176,7 +176,7 @@ const GeoLayout geo_menu_act_selector_strings[] = {
       GEO_OPEN_NODE(),
          GEO_NODE_ORTHO(100),
          GEO_OPEN_NODE(),
-            GEO_BACKGROUND_COLOR(0xFFFF),
+            GEO_BACKGROUND_COLOR(0x0001),
          GEO_CLOSE_NODE(),
       GEO_CLOSE_NODE(),
       GEO_ZBUFFER(1),
@@ -196,3 +196,9 @@ const GeoLayout geo_menu_act_selector_strings[] = {
    GEO_CLOSE_NODE(),
    GEO_END(),
 };
+
+#include "src/game/envfx_snow.h"
+
+#include "levels/menu/file_select_screen/geo.inc.c"
+#include "file_select_screen_geo/geo.inc.c"
+//#include "levels/menu/file_select_screen/texscroll.inc.c"

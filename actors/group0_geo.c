@@ -16,3 +16,6 @@
 #include "water_splash/geo.inc.c"
 #include "sparkle_animation/geo.inc.c"
 #include "mario/geo.inc.c"
+#include "skinned/geo.inc.c"
+#include "RedTreeA/geo.inc.c"
+#include "RedTreeB/geo.inc.c"

@@ -1,0 +1,6 @@
+extern void scroll_castle_grounds_dl_mesh_mesh_layer_1_vtx_29();
+extern void scroll_castle_grounds_dl_mesh_mesh_layer_1_vtx_31();
+extern void scroll_castle_grounds_dl_mesh_mesh_layer_5_vtx_1();
+extern void scroll_castle_grounds_dl_mesh_005_mesh_layer_1_vtx_0();
+extern void scroll_castle_grounds_dl_mesh_001_mesh_layer_5_vtx_0();
+extern void scroll_castle_grounds();

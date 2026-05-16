@@ -1,3 +1,4 @@
+#include "texscroll.h"
 #include <ultra64.h>
 
 #include "sm64.h"
@@ -34,6 +35,8 @@
 #include "debug.h"
 
 #include "config.h"
+
+extern struct SequencePlayer gSequencePlayers[4];
 
 // TODO: Make these ifdefs better
 const char *credits01[] = { "1GAME DIRECTOR", "SHIGERU MIYAMOTO" };
@@ -350,8 +353,14 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
 
 void init_mario_after_warp(void) {
     struct Object *object = get_destination_warp_object(sWarpDest.nodeId);
-    assert_args(object, "No dest warp object found for: 0x%02X", sWarpDest.nodeId);
 
+#ifdef DEBUG_ASSERTIONS
+    if (!object) {
+        char errorMsg[40];
+        sprintf(errorMsg, "No dest warp object found for: 0x%02X", sWarpDest.nodeId);
+        error(errorMsg);
+    }
+#endif
     u32 marioSpawnType = get_mario_spawn_type(object);
 
     if (gMarioState->action != ACT_UNINITIALIZED) {
@@ -552,27 +561,49 @@ void check_instant_warp(void) {
                 gMarioState->marioObj->oPosY = gMarioState->pos[1];
                 gMarioState->marioObj->oPosZ = gMarioState->pos[2];
 
-                // Fix instant warp offset not working when warping across different areas
                 gMarioObject->header.gfx.pos[0] = gMarioState->pos[0];
                 gMarioObject->header.gfx.pos[1] = gMarioState->pos[1];
                 gMarioObject->header.gfx.pos[2] = gMarioState->pos[2];
 
-                cameraAngle = gMarioState->area->camera->yaw;
+                cameraAngle = gMarioState->area->camera->yaw;  
+  
 
-                change_area(warp->area);
-                gMarioState->area = gCurrentArea;
+            change_area(warp->area);
+            gMarioState->area = gCurrentArea;
 
-                warp_camera(warp->displacement[0], warp->displacement[1], warp->displacement[2]);
+            warp_camera(warp->displacement[0], warp->displacement[1], warp->displacement[2]);
+            gMarioState->area->camera->yaw = cameraAngle;
 
-                gMarioState->area->camera->yaw = cameraAngle;
+            seq_player_fade_out(0, 0);
+
+            s32 nuevaMusica = 0;
+
+            if (warp->area == 8) nuevaMusica = 0x59; // ID de música area 1
+            if (warp->area == 9) nuevaMusica = 0x5A; // ID de música area 2
+            if (warp->area == 6) nuevaMusica = 0x57; // ID de música area 3
+
+            if (nuevaMusica != 0) {
+                play_music(0, SEQUENCE_ARGS(4, nuevaMusica), 0);
             }
-        }
-    }
-}
+
+            play_sound(SOUND_GENERAL_PAINTING_EJECT, gMarioState->marioObj->header.gfx.cameraToObject);
+
+            warp->id = 0;
+            } 
+        } 
+    } 
+} 
 
 s16 music_unchanged_through_warp(s16 arg) {
     struct ObjectWarpNode *warpNode = area_get_warp_node(arg);
-    assert_args(warpNode, "No source warp node found for: 0x%02X", (u8) arg);
+
+#ifdef DEBUG_ASSERTIONS
+    if (!warpNode) {
+        char errorMsg[40];
+        sprintf(errorMsg, "No source warp node found for: 0x%02X", (u8) arg);
+        error(errorMsg);
+    }
+#endif
 
     s16 levelNum = warpNode->node.destLevel & 0x7F;
 
@@ -900,7 +931,14 @@ void initiate_delayed_warp(void) {
 
                 default:
                     warpNode = area_get_warp_node(sSourceWarpNodeId);
-                    assert_args(warpNode, "No source warp node found for: 0x%02X", (u8) sSourceWarpNodeId);
+
+#ifdef DEBUG_ASSERTIONS
+                    if (!warpNode) {
+                        char errorMsg[40];
+                        sprintf(errorMsg, "No source warp node found for: 0x%02X", (u8) sSourceWarpNodeId);
+                        error(errorMsg);
+                    }
+#endif
 
                     initiate_warp(warpNode->node.destLevel & 0x7F, warpNode->node.destArea,
                                   warpNode->node.destNode, sDelayedWarpArg);
@@ -1117,7 +1155,7 @@ s32 play_mode_frame_advance(void) {
  */
 void level_set_transition(s16 length, void (*updateFunction)()) {
     sTransitionTimer = length;
-    sTransitionUpdate = (typeof(sTransitionUpdate)) updateFunction;
+    sTransitionUpdate = updateFunction;
 }
 
 /**
@@ -1185,7 +1223,7 @@ s32 update_level(void) {
 
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:
-            changeLevel = play_mode_normal();
+            changeLevel = play_mode_normal(); scroll_textures();
             break;
         case PLAY_MODE_PAUSED:
             changeLevel = play_mode_paused();
@@ -1209,12 +1247,11 @@ s32 update_level(void) {
     return changeLevel;
 }
 
-#ifdef PUPPYPRINT_DEBUG
-extern u32 gInitLevelTime;
-#endif
-
 s32 init_level(void) {
     s32 fadeFromColor = FALSE;
+#ifdef PUPPYPRINT_DEBUG
+    OSTime first = osGetTime();
+#endif
 
     set_play_mode(PLAY_MODE_NORMAL);
 
@@ -1304,14 +1341,7 @@ s32 init_level(void) {
         sound_banks_disable(SEQ_PLAYER_SFX, SOUND_BANKS_DISABLED_DURING_INTRO_CUTSCENE);
     }
 
-#ifdef PUPPYPRINT_DEBUG
-    if (gInitLevelTime) {
-        u32 totalTime = osGetCount() - gInitLevelTime;
-        append_puppyprint_log("Level loaded in %2.3fs.", (f64) OS_CYCLES_TO_USEC(totalTime) / 1000000.0f);
-        gInitLevelTime = 0;
-    }
-#endif
-
+    append_puppyprint_log("Level loaded in %d" PP_CYCLE_STRING ".", (s32)(PP_CYCLE_CONV(osGetTime() - first)));
     return TRUE;
 }
 
@@ -1371,6 +1401,8 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
     sWarpCheckpointActive = FALSE;
     gCurrLevelNum = levelNum;
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
+	//if (gCurrLevelNum == LEVEL_DREAMS) return 0;
+	//if (gCurrLevelNum == LEVEL_LIMINAL) return 0;
 
     if (gCurrDemoInput != NULL || gCurrCreditsEntry != NULL || gCurrCourseNum == COURSE_NONE) {
         return FALSE;
@@ -1391,6 +1423,12 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
     if (gCurrCourseNum > COURSE_STAGES_MAX || warpCheckpointActive) {
         return FALSE;
     }
+	if (gCurrLevelNum == LEVEL_BOB) return 0;
+	if (gCurrLevelNum == LEVEL_BBH) return 0;
+	if (gCurrLevelNum == LEVEL_JRB) return 0;
+	//if (gCurrLevelNum == LEVEL_PERSONALIZED) return 0;
+	//if (gCurrLevelNum == LEVEL_NUTMEG) return 0;
+	if (gCurrLevelNum == LEVEL_WF) return 0;
 
     return !gDebugLevelSelect;
 }

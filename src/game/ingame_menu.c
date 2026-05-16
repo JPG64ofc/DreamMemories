@@ -1979,7 +1979,7 @@ void print_hud_course_complete_string(s8 str) {
     gDPSetEnvColor(gDisplayListHead++, colorFade, colorFade, colorFade, 255);
 
     if (str == HUD_PRINT_HISCORE) {
-        print_hud_lut_string(HUD_LUT_GLOBAL, TXT_HISCORE_X,  TXT_HISCORE_Y,  LANGUAGE_ARRAY(textHiScore));
+        print_hud_lut_string(HUD_LUT_GLOBAL, TXT_HISCORE_X,  60,  LANGUAGE_ARRAY(textHiScore));
     } else { // HUD_PRINT_CONGRATULATIONS
         print_hud_lut_string(HUD_LUT_GLOBAL, TXT_CONGRATS_X, TXT_CONGRATS_Y, LANGUAGE_ARRAY(textCongratulations));
     }

@@ -30,3 +30,6 @@
 #include "src/s2d_engine/s2d_config.h"
 #include FONT_C_FILE
 #endif
+#include "skinned/model.inc.c"
+#include "RedTreeA/model.inc.c"
+#include "RedTreeB/model.inc.c"

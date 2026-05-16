@@ -13,63 +13,34 @@
 #endif
 
 DEFINE_DIALOG(DIALOG_000, 1, 6, 30, 200, _("\
-Wow! You're smack in the\n\
-middle of the battlefield.\n\
-You'll find the Power\n\
-Stars that Bowser stole\n\
-inside the painting\n\
-worlds.\n\
-First, talk to the\n\
-Bob-omb Buddy. (Press [B]\n\
-to talk.) He'll certainly\n\
-help you out, and so will\n\
-his " COMRADES " in other\n\
-areas.\n\
-To read signs, stop, face\n\
-them and press [B]. Press [A]\n\
-or [B] to scroll ahead. You\n\
-can talk to some other\n\
-characters by facing them\n\
-and pressing [B]."))
+exploring the WORLD!! \n\
+IT Is sO fun to ENter \n\
+caves AND HOles, inst it?\n\
+but DONT ENTer everywhere\n\
+some plAces arent suposed\n\
+to be seeN exit befORE i\n\
+err.dialog-ZERO.redacted\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+\n\
+again?"))
 
 DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, _("\
-Watch out! If you wander\n\
-around here, you're liable\n\
-to be " PLASTERED " by a\n\
-water bomb!\n\
-Those enemy Bob-ombs love\n\
-to fight, and they're\n\
-always finding ways to\n\
-attack.\n\
-This meadow has become\n\
-a battlefield ever since\n\
-the Big Bob-omb got his\n\
-paws on the Power Star.\n\
-Can you recover the Star\n\
-for us? Cross the bridge\n\
-and go left up the path\n\
-to find the Big Bob-omb.\n\
-Please come back to see\n\
-me after you've retrieved\n\
-the Power Star!"))
+i gave you a mouth\n\
+so you could pray..\n\
+why are you wasting \n\
+it on screamming? cursing?"))
 
 DEFINE_DIALOG(DIALOG_002, 1, 4, 95, 200, _("\
-Hey, you! It's dangerous\n\
-ahead, so listen up! Take\n\
-my advice.\n\
-\n\
-Cross the two\n\
-bridges ahead, then\n\
-watch for falling\n\
-water bombs.\n\
-The Big Bob-omb at the\n\
-top of the mountain is\n\
-very powerful--don't let\n\
-him grab you!\n\
-We're Bob-omb Buddies,\n\
-and we're on your side.\n\
-You can talk to us\n\
-whenever you'd like to!"))
+I'm sleeping because...\n\
+..I'm sleepy. I don't like\n\
+being disturbed. Please\n\
+walk quietly."))
 
 DEFINE_DIALOG(DIALOG_003, 1, 5, 95, 200, _("\
 Thank you, Mario! The Big\n\
@@ -217,7 +188,7 @@ from the power of the\n\
 castle.\n\
 Do you want to Save?\n\
 \n\
-//You Bet//Not Now"))
+//yes//No"))
 
 DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, _("\
 You can punch enemies to\n\
@@ -261,22 +232,28 @@ this royal turf? I think\n\
 that you cannot!"))
 
 DEFINE_DIALOG(DIALOG_018, 1, 4, 30, 200, _("\
-I'm sleeping because...\n\
-...I'm sleepy. I don't\n\
-like being disturbed.\n\
-Please walk quietly."))
+WELCOME VISITOR!!!\n\
+in this world of pure fun,\n\
+you can explore the wonders\n\
+i created just for you!\n\
+i made everything just the\n\
+way you dreamed about!\n\
+and the good part?\n\
+there's no need to\n\
+thank me for it!!\n\
+have fun exploring the wonders\n\
+from this beautiful realm\n\
+created just for you!!"))
 
 DEFINE_DIALOG(DIALOG_019, 1, 2, 30, 200, _("\
 Shhh! Please walk\n\
 quietly in the hallway!"))
 
 DEFINE_DIALOG(DIALOG_020, 1, 6, 95, 150, _("\
-Dear Mario:\n\
-Please come to the\n\
-castle. I've baked\n\
-a cake for you.\n\
-Yours truly--\n\
-Princess Toadstool"))
+Shhh! Please walk\n\
+quietly in the hallway!\n\
+turn away while you still can\n\
+-???, 1994"))
 
 DEFINE_DIALOG(DIALOG_021, 1, 5, 95, 200, _("\
 Welcome.\n\
@@ -2097,3 +2074,31 @@ Arrgghh!\n\
 Anyone entering this cave\n\
 without permission will\n\
 meet certain disaster."))
+
+DEFINE_DIALOG(DIALOG_170, 1, 6, 30, 200, _("\
+Hello, its me JPG64\n\
+talking now, so, u might\n\
+be curious about DM, well\n\
+dream memories is a mod\n\
+of sm64 made with decomp\n\
+hackerSM64, this mod\n\
+focus on the horror and\n\
+liminal spaces, it is\n\
+inspired by the following:\n\
+SM64 classified\n\
+B3313\n\
+The Unknown Link\n\
+His Personalized Copy\n\
+iHaveNoMouthAndiMustScream\n\
+this game has also a lore\n\
+\n\
+This game HAS jumpscares\n\
+and loud audio, and maybe\n\
+photosensibility triggering\n\
+proceed at your own risk\n\
+\n\
+\n\
+please.\n\
+have.\n\
+fun.\n\
+//okay!/// okay?"))

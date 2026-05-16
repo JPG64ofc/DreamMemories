@@ -1,0 +1,2 @@
+extern void scroll_file_select_screen_file_select_screen_geo_mesh_layer_1_vtx_13();
+extern void scroll_menu_level_geo_file_select_screen();

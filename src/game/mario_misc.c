@@ -530,13 +530,13 @@ Gfx *geo_mario_rotate_wing_cap_wings(s32 callContext, struct GraphNode *node, UN
         struct GraphNodeRotation *rotNode = (struct GraphNodeRotation *) node->next;
 
         if (!gBodyStates[asGenerated->parameter >> 1].wingFlutter) {
-            rotX = (coss((gAreaUpdateCounter & 0xF) << 12) + 1.0f) * 4096.0f;
+            rotX = (coss((gAreaUpdateCounter & 0x0) << 0) + 0.0f) * 0.0f;
         } else {
-            rotX = (coss((gAreaUpdateCounter & 7) << 13) + 1.0f) * 6144.0f;
+            rotX = (coss((gAreaUpdateCounter & 0xF) << 12) + 1.0f) * 4096.0f;
         }
         rotNode->rotation[0] = (asGenerated->parameter & 1) ? rotX : -rotX;
     }
-    return NULL;
+    return NULL; 
 }
 
 /**

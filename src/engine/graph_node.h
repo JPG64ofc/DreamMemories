@@ -63,6 +63,7 @@ enum GraphNodeTypes {
     GRAPH_NODE_TYPE_BACKGROUND,
     GRAPH_NODE_TYPE_HELD_OBJ,
     GRAPH_NODE_TYPE_CULLING_RADIUS,
+    GRAPH_NODE_TYPE_SCENE_LIGHT,
     GRAPH_NODE_TYPE_ROOT,
     GRAPH_NODE_TYPE_START,
 };
@@ -253,18 +254,14 @@ struct GraphNodeAnimatedPart {
 };
 
 /** A GraphNode that draws a display list rotated in a way to always face the
- *  camera. Cylindrical billboarding can be used instead via 'isCylindrical',
- *  which rotates the display list only around the axis vector.
- *  Note that if the entire object is a billboard (like a coin or 1-up) then it
- *  simply sets the billboard flag for the entire object, this node is used for
- *  billboard parts (like a chuckya or goomba body).
+ *  camera. Note that if the entire object is a billboard (like a coin or 1-up)
+ *  then it simply sets the billboard flag for the entire object, this node is
+ *  used for billboard parts (like a chuckya or goomba body).
  */
 struct GraphNodeBillboard {
     /*0x00*/ struct GraphNode node;
     /*0x14*/ void *displayList;
     /*0x18*/ Vec3s translation;
-    /*0x1E*/ Vec3s axis;
-    /*0x24*/ u8 isCylindrical;
 };
 
 /** A GraphNode that simply draws a display list without doing any
@@ -351,6 +348,20 @@ struct GraphNodeCullingRadius {
     // u8 filler[2];
 };
 
+/** Advanced Lighting Engine
+ *  A node that sets up a scene light in the area's GeoLayout.
+ */
+struct GraphNodeSceneLight
+{
+    /*0x00*/ struct GraphNode node;
+    /*0x14*/ u8 lightType; // Type of light (0 is regular, 1 is point)
+    /*0x15*/ u8 color[3]; // Array of R,G,B colors of light
+    /*0x18*/ u8 a; // Dir x (directional light) or Inverse square falloff (point light)
+    /*0x19*/ u8 b; // Dir y (directional light) or Inverse linear falloff (point light)
+    /*0x1A*/ u8 c; // Dir z (directional light) or unused (point light)
+    /*0x1B*/ struct SceneLight* light; // Pointer to this light's scene light struct
+};
+
 extern struct GraphNodeMasterList  *gCurGraphNodeMasterList;
 extern struct GraphNodePerspective *gCurGraphNodeCamFrustum;
 extern struct GraphNodeCamera      *gCurGraphNodeCamera;
@@ -380,13 +391,15 @@ struct GraphNodeScale               *init_graph_node_scale               (struct
 struct GraphNodeObject              *init_graph_node_object              (struct AllocOnlyPool *pool, struct GraphNodeObject              *graphNode, struct GraphNode *sharedChild, Vec3f pos, Vec3s angle, Vec3f scale);
 struct GraphNodeCullingRadius       *init_graph_node_culling_radius      (struct AllocOnlyPool *pool, struct GraphNodeCullingRadius       *graphNode, s16 radius);
 struct GraphNodeAnimatedPart        *init_graph_node_animated_part       (struct AllocOnlyPool *pool, struct GraphNodeAnimatedPart        *graphNode, s32 drawingLayer, void *displayList, Vec3s translation);
-struct GraphNodeBillboard           *init_graph_node_billboard           (struct AllocOnlyPool *pool, struct GraphNodeBillboard           *graphNode, s32 drawingLayer, void *displayList, Vec3s translation, Vec3s axis, u8 isCylindrical);
+struct GraphNodeBillboard           *init_graph_node_billboard           (struct AllocOnlyPool *pool, struct GraphNodeBillboard           *graphNode, s32 drawingLayer, void *displayList, Vec3s translation);
 struct GraphNodeDisplayList         *init_graph_node_display_list        (struct AllocOnlyPool *pool, struct GraphNodeDisplayList         *graphNode, s32 drawingLayer, void *displayList);
 struct GraphNodeShadow              *init_graph_node_shadow              (struct AllocOnlyPool *pool, struct GraphNodeShadow              *graphNode, s16 shadowScale, u8 shadowSolidity, u8 shadowType);
 struct GraphNodeObjectParent        *init_graph_node_object_parent       (struct AllocOnlyPool *pool, struct GraphNodeObjectParent        *graphNode, struct GraphNode *sharedChild);
 struct GraphNodeGenerated           *init_graph_node_generated           (struct AllocOnlyPool *pool, struct GraphNodeGenerated           *graphNode, GraphNodeFunc gfxFunc, s32 parameter);
 struct GraphNodeBackground          *init_graph_node_background          (struct AllocOnlyPool *pool, struct GraphNodeBackground          *graphNode, u16 background, GraphNodeFunc backgroundFunc, s32 zero);
 struct GraphNodeHeldObject          *init_graph_node_held_object         (struct AllocOnlyPool *pool, struct GraphNodeHeldObject          *graphNode, struct Object *objNode, Vec3s translation, GraphNodeFunc nodeFunc, s32 playerIndex);
+// Advanced lighting engine
+struct GraphNodeSceneLight          *init_graph_node_scene_light         (struct AllocOnlyPool *pool, struct GraphNodeSceneLight          *graphNode, u8 lightType, u8 color[], u8 quadraticFalloff, u8 linearFalloff, u8 unused);
 
 struct GraphNode *geo_add_child       (struct GraphNode *parent, struct GraphNode *childNode);
 struct GraphNode *geo_remove_child    (struct GraphNode *graphNode);

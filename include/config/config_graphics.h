@@ -20,12 +20,12 @@
 /**
  * Show a watermark on the title screen that reads "Made with HackerSM64", instead of the copyright message.
  */
-#define INTRO_CREDIT
+//#define INTRO_CREDIT
 
 /**
  * Spawns floombas on the title screen.
  */
-#define INTRO_FLOOMBAS
+//#define INTRO_FLOOMBAS
 
 /**
  * Enables widescreen (16:9) support.
@@ -50,7 +50,7 @@
  * Enables Puppyprint, a display library for text and large images.
  * Automatically enabled when PUPPYPRINT_DEBUG is enabled.
  */
-// #define PUPPYPRINT
+#define PUPPYPRINT
 
 /**
  * Disables AA (Improves console performance but causes visible seams between unconnected geometry).
@@ -82,22 +82,22 @@
  * Also, this also disables anti-aliasing on Mario.
  * NOTE: Regarding performance, silhouette seems to lose 1-2 frames on console.
  */
-// #define SILHOUETTE 127
+// #define SILHOUETTE 255
 
 /**
  * Use 64x64 quarter shadow textures (Vanilla are 16x16).
  */
-#define HD_SHADOWS
+// #define HD_SHADOWS
 
 /**
  * Makes certain objects (mainly trees) transparent when the camera gets close.
  */
-// #define OBJ_OPACITY_BY_CAM_DIST
+ #define OBJ_OPACITY_BY_CAM_DIST
 
 /**
  * Fixes the game reading the ia8 burn smoke texture as an rgba16.
  */
-#define BURN_SMOKE_FIX
+// #define BURN_SMOKE_FIX
 
 /**
  * Disables the fix to Koopa's unshelled model.
@@ -108,7 +108,7 @@
  * Uses the star object's model in the star dance cutscene.
  * This has a side effect of making the star dance star also transparent when Mario collects a transparent star.
  */
-// #define STAR_DANCE_USES_STARS_MODEL
+ #define STAR_DANCE_USES_STARS_MODEL
 
 /**
  * Disables all object shadows. You'll probably only want this either as a last resort for performance or if you're making a super stylized hack.
@@ -144,7 +144,7 @@
  * Eases the textured screen transitions to make them look smoother. 
  * Extends the full radius for mario, bowser and the star transitions.
  */
-// #define POLISHED_TRANSITIONS
+#define POLISHED_TRANSITIONS
 
 /**
  * Uses frustratio of 2 instead of 1.
